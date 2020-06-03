@@ -24,42 +24,39 @@ int main() {
     remove ("out.txt");
 
     //відкриваємо файл
-      ifstream input("input.txt");
-      if (!input.is_open()){
-          cerr<<"Can not read \"input.txt\""<<endl;
+    ifstream input("input.txt");
+    if (!input.is_open()){
+        cerr<<"Can not read \"input.txt\""<<endl;
           return 2;
+    }
+    //зчитуємо вміст по рядку
+    else {
+        string line;
+        while (getline(input, line)){
+            coord tmp;
+            istringstream iss(line);
+            iss>>tmp.llng>>tmp.llt;
+            nodes.push_back(tmp);
         }
+    }
 
-      //зчитуємо вміст по рядку
-      else {
-          string line;
-          while (getline(input, line)){
-              coord tmp;
-              istringstream iss(line);
-              iss>>tmp.llng>>tmp.llt;
-              nodes.push_back(tmp);
-            }
-        }
-
-      int Size = nodes.size();//кількість вузлів
-      int **dist_matrix=new int *[Size];
-      bool **result_array=new bool *[Size];
-      for (int i=0;i<Size;i++){
+    int Size = nodes.size();//кількість вузлів
+    int **dist_matrix=new int *[Size];
+    bool **result_array=new bool *[Size];
+    for (int i=0;i<Size;i++){
         dist_matrix[i]=new int[Size];
         result_array[i]=new bool[Size];
-      }
-
-      //матриця відстаней між вузлами
-      for (int i=0; i<Size; i++){
+    }
+    //матриця відстаней між вузлами
+    for (int i=0; i<Size; i++){
         for (int j=i; j<Size; j++){
             if (i==j) dist_matrix[i][j]=0;
                 //знаходимо відстані
-                else
-                dist_matrix[i][j]=dist_matrix[j][i]=get_distance(nodes[i].llng, nodes[i].llt, nodes[j].llng, nodes[j].llt);
-              }
-          }
-
-
+                else dist_matrix[i][j]=dist_matrix[j][i]=get_distance(nodes[i].llng, nodes[i].llt, nodes[j].llng, nodes[j].llt);
+            }
+        }
+    EssauWilliams effective_topology(dist_matrix, Size);
+    bool **result=effective_topology.algorythm();
 
     return 0;
 }

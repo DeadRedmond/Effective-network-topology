@@ -25,7 +25,6 @@ EssauWilliams::~EssauWilliams(){
 
 bool** EssauWilliams::algorythm(){
     terminate=false;
-
     int step=0;
     while (!terminate){
     //for (int k=0;k<1;k++){
@@ -51,8 +50,9 @@ bool** EssauWilliams::algorythm(){
         //додаємо новий зв'язок
         result_matrix[from][to]=result_matrix[to][from]=true;
         //тепер вершини в одному підграфі
+        int tmp=from;
         for (int i=0;i<size;i++){
-            if (subgraphs[i]==subgraphs[from])
+            if (subgraphs[i]==subgraphs[tmp])
                 subgraphs[i]=subgraphs[to];
             cout<<subgraphs[i]<<"|";
         }
@@ -69,7 +69,7 @@ bool** EssauWilliams::algorythm(){
         else {
             //output.width(5);
             output<<"STEP #"<<(step+1)<<endl<<"FROM: "<<(from+1)<<"\tTO: "<<(to+1)<<"\tTRADEOFF: "<<(tradeoff)<<endl;
-
+            /*
             for (int i=0; i<size; i++){
                 for (int j=0; j<size; j++)
                     output<<result_matrix[i][j]<<"\t";
@@ -78,6 +78,7 @@ bool** EssauWilliams::algorythm(){
             }
             output<<"----------------------------------------------------------"<<endl<<endl;
             output.close();
+            */
           }
         step++;
 
