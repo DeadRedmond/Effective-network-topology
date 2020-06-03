@@ -1,10 +1,9 @@
 #ifndef GREAT_CIRCLES_H
 #define GREAT_CIRCLES_H
-
-//радіус Землі в метрах
-#define RAD 6372795
 #include <cmath>
 
-int get_distance(double,double,double,double);
+#define RAD     6372795//радіус Землі в метрах
+#define M_PI	3.14159265358979323846//Pi
 
+int get_distance(double,double,double,double);
 #endif // GREAT_CIRCLES_H

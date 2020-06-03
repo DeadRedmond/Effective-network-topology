@@ -25,8 +25,7 @@ EssauWilliams::~EssauWilliams(){
 
 bool** EssauWilliams::algorythm(){
     terminate=false;
-    int step=0;
-    while (!terminate){
+    while (true){
     //for (int k=0;k<1;k++){
         int from=0,to=0,tradeoff=0;
         for (int i=0;i<size;i++){
@@ -47,45 +46,18 @@ bool** EssauWilliams::algorythm(){
                   }
               }
           }
+        //умова виходу
+        if ((from==0)&&(to==0)) break;
         //додаємо новий зв'язок
         result_matrix[from][to]=result_matrix[to][from]=true;
-        //тепер вершини в одному підграфі
-        int tmp=from;
-        for (int i=0;i<size;i++){
-            if (subgraphs[i]==subgraphs[tmp])
-                subgraphs[i]=subgraphs[to];
-            cout<<subgraphs[i]<<"|";
-        }
-        cout<<endl;
         //вказуємо, що вершина оброблена
         flag[from]=true;
-
-
-        //друк в файл
-        ofstream output("out.txt", ofstream::app);
-        if (!output.is_open()){
-            cerr<<"Can not write to \"out.txt\""<<endl;
-          }
-        else {
-            //output.width(5);
-            output<<"STEP #"<<(step+1)<<endl<<"FROM: "<<(from+1)<<"\tTO: "<<(to+1)<<"\tTRADEOFF: "<<(tradeoff)<<endl;
-            /*
-            for (int i=0; i<size; i++){
-                for (int j=0; j<size; j++)
-                    output<<result_matrix[i][j]<<"\t";
-                output<<endl;
-
-            }
-            output<<"----------------------------------------------------------"<<endl<<endl;
-            output.close();
-            */
-          }
-        step++;
-
-
-        //умова виходу
-        if ((from==0)&&(to==0)) terminate=true;
-       }
+        //тепер вершини в одному підграфі
+        int tmp_from=subgraphs[from], tmp_to=subgraphs[to];
+        for (int i=0;i<size;i++){
+            if (subgraphs[i]==tmp_from)
+                subgraphs[i]=tmp_to;
+        }
+    }
     return result_matrix;
-
 }

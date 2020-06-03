@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,13 +7,10 @@
 #include "essauwilliams.h"
 #include "great_circles.h"
 
-using namespace std;
-
 class coord {
 public:
   double llt, llng;
 };
-
 
 int main() {
     cout.setf(ios_base::fixed);
@@ -58,5 +53,20 @@ int main() {
     EssauWilliams effective_topology(dist_matrix, Size);
     bool **result=effective_topology.algorythm();
 
-    return 0;
+    //друк результатів в файл
+    ofstream output("out.txt", ofstream::trunc);
+    if (!output.is_open()){
+        cerr<<"Can not write to \"out.txt\""<<endl;
+        return 3;
+      }
+    else {
+        //output.width(5);
+        for (int i=0; i<Size; i++){
+            for (int j=0; j<Size; j++)
+                output<<result[i][j]<<"\t";
+            output<<endl;
+        }
+        output.close();
+      }
+      return 0;
 }
