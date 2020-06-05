@@ -1,41 +1,14 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
 #include <string>
 #include <vector>
 
 #include "essauwilliams.h"
-#include "great_circles.h"
+#include "func.h"
 
-class coord {
-public:
-  double llt, llng;
-};
-
-int main() {
-    cout.setf(ios_base::fixed);
-    cout.precision(6);
-    vector <coord> nodes;
-    remove ("out.txt");
-
-    //відкриваємо файл
-    ifstream input("input.txt");
-    if (!input.is_open()){
-        cerr<<"Can not read \"input.txt\""<<endl;
-          return 2;
-    }
-    //зчитуємо вміст по рядку
-    else {
-        string line;
-        while (getline(input, line)){
-            coord tmp;
-            istringstream iss(line);
-            iss>>tmp.llng>>tmp.llt;
-            nodes.push_back(tmp);
-        }
-    }
-
+int main(int argc, char *argv[]) {
+    vector <coord> nodes=read(argc);
     int Size = nodes.size();//кількість вузлів
+    if (Size==0) return 2;
+
     int **dist_matrix=new int *[Size];
     bool **result_array=new bool *[Size];
     for (int i=0;i<Size;i++){
@@ -52,21 +25,6 @@ int main() {
         }
     EssauWilliams effective_topology(dist_matrix, Size);
     bool **result=effective_topology.algorythm();
-
-    //друк результатів в файл
-    ofstream output("out.txt", ofstream::trunc);
-    if (!output.is_open()){
-        cerr<<"Can not write to \"out.txt\""<<endl;
-        return 3;
-      }
-    else {
-        //output.width(5);
-        for (int i=0; i<Size; i++){
-            for (int j=0; j<Size; j++)
-                output<<result[i][j]<<"\t";
-            output<<endl;
-        }
-        output.close();
-      }
-      return 0;
+    if (write(result, Size)!=0) return 3;
+    return 0;
 }

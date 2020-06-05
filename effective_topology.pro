@@ -7,10 +7,10 @@ QMAKE_LFLAGS += -static
 
 SOURCES += \
         essauwilliams.cpp \
-        great_circles.cpp \
+        func.cpp \
         main.cpp
 
 HEADERS += \
     essauwilliams.h \
-    great_circles.h
+    func.h
 

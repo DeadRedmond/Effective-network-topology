@@ -26,7 +26,6 @@ EssauWilliams::~EssauWilliams(){
 bool** EssauWilliams::algorythm(){
     terminate=false;
     while (true){
-    //for (int k=0;k<1;k++){
         int from=0,to=0,tradeoff=0;
         for (int i=0;i<size;i++){
             if (flag[i]==true) continue;
