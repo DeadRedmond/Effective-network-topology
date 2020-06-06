@@ -1,8 +1,8 @@
 #include "func.h"
-
-vector<coord> read(int tmp){
+///
+vector<coord> read(){
   vector <coord> nodes;
-  if (tmp==1){
+  if (__argc==1){
       //відкриваємо файл
       ifstream input("input.txt");
       if (!input.is_open()){
@@ -41,7 +41,7 @@ vector<coord> read(int tmp){
       }
     }
 }
-
+/// Функція друкує двомірну матрицю в файл out.txt
 int write(bool **matrix, int size){
   remove ("output.txt");
   ofstream output("out.txt", ofstream::trunc);
@@ -60,7 +60,7 @@ int write(bool **matrix, int size){
       return 0;
     }
 }
-
+///*функція приймає координати двох точок і повертає відстань між ними в метрах
 int get_distance(double llat1, double llong1, double llat2, double llong2) {
 
   //приведення до радіан

@@ -2,6 +2,7 @@
 #define FUNC_H
 #include <cmath>
 #include <vector>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -16,7 +17,7 @@ public:
   double llt, llng;
 };
 
-vector<coord> read(int);
+vector<coord> read();
 int write(bool**,int);
 int get_distance(double,double,double,double);
 #endif // FUNC_H

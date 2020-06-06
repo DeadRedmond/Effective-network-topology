@@ -1,4 +1,5 @@
 #include "essauwilliams.h"
+int g_counter=0;
 
 EssauWilliams::EssauWilliams(int **a, int b){
     matrix=a;
@@ -26,15 +27,19 @@ EssauWilliams::~EssauWilliams(){
 bool** EssauWilliams::algorythm(){
     terminate=false;
     while (true){
+        g_counter++;
         int from=0,to=0,tradeoff=0;
         for (int i=0;i<size;i++){
+            g_counter++;
             if (flag[i]==true) continue;
             for (int j=0;j<size;j++){
+                g_counter++;
                 if (subgraphs[i]==subgraphs[j]) continue;
                 ///
                 int tmp_t=matrix[i][0]-matrix[i][j];
                 int tmp_w=0;
                 for (int k=0;k<size;k++){
+                    g_counter++;
                     if ((subgraphs[k]==subgraphs[i])||(subgraphs[k]==subgraphs[j]))
                       tmp_w++;
                   }
@@ -54,9 +59,11 @@ bool** EssauWilliams::algorythm(){
         //тепер вершини в одному підграфі
         int tmp_from=subgraphs[from], tmp_to=subgraphs[to];
         for (int i=0;i<size;i++){
+            g_counter++;
             if (subgraphs[i]==tmp_from)
                 subgraphs[i]=tmp_to;
         }
     }
+    cout<<g_counter;
     return result_matrix;
 }

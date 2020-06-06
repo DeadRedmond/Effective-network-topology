@@ -1,6 +1,5 @@
 #ifndef ESSAUWILLIAMS_H
 #define ESSAUWILLIAMS_H
-
 #include <iostream>
 #include <fstream>
 
