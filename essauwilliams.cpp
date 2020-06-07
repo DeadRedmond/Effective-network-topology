@@ -63,6 +63,7 @@ bool** EssauWilliams::algorythm(){
             if (subgraphs[i]==tmp_from)
                 subgraphs[i]=tmp_to;
         }
+        cout<<"From: "<<from<<"\tTo:"<<to<<endl;
     }
     cout<<g_counter;
     return result_matrix;

@@ -8,6 +8,9 @@ int main() {
       return 2;
 
     int **dist_matrix=new int *[Size];
+    for (int i=0;i<Size;i++){
+        dist_matrix[i]=new int[Size];
+    }
     for (int i=0; i<Size; i++){
         dist_matrix[i]=new int[Size];
         for (int j=i; j<Size; j++){
