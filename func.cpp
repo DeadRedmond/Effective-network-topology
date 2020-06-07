@@ -1,5 +1,5 @@
 #include "func.h"
-///
+/// Функція зчитує координати з файлу
 vector<coord> read(){
   vector <coord> nodes;
   if (__argc==1){
@@ -60,6 +60,7 @@ int write(bool **matrix, int size){
       return 0;
     }
 }
+
 ///*функція приймає координати двох точок і повертає відстань між ними в метрах
 int get_distance(double llat1, double llong1, double llat2, double llong2) {
 

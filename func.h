@@ -19,5 +19,6 @@ public:
 
 vector<coord> read();
 int write(bool**,int);
+int write_int(int**,int);
 int get_distance(double,double,double,double);
 #endif // FUNC_H
