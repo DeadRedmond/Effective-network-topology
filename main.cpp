@@ -1,8 +1,10 @@
 #include "essauwilliams.h"
 #include "func.h"
+#include "args.h"
 
 int main() {
-    vector <coord> nodes=read();
+    args_t args;
+    vector <coord> nodes=read(args.input_file);
     int Size = nodes.size();//кількість вузлів
     if (Size==0) return 2;
 
@@ -20,9 +22,9 @@ int main() {
                 else dist_matrix[i][j]=dist_matrix[j][i]=get_distance(nodes[i].llng, nodes[i].llt, nodes[j].llng, nodes[j].llt);
             }
         }
-    EssauWilliams effective_topology(dist_matrix, Size);
+    EssauWilliams effective_topology(dist_matrix, Size, args.limit);
     bool **result=effective_topology.algorythm();
-    if (write(result, Size)!=0) return 3;
+    if (write(result, Size, args.output_file)!=0) return 3;
     for (int i=0;i<Size;i++){
         delete[] dist_matrix[i];
         delete[] result[i];

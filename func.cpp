@@ -1,56 +1,36 @@
 #include "func.h"
+
 /// Функція зчитує координати з файлу
-vector<coord> read(){
+vector<coord> read(const char *file){
   vector <coord> nodes;
-  if (__argc==1){
-      //відкриваємо файл
-      ifstream input("input.txt");
-      if (!input.is_open()){
-          cerr<<"Can not read \"input.txt\""<<endl;
-            return nodes;
-      }
-      //зчитуємо вміст по рядку
-      else {
-          string line;
-          while (getline(input, line)){
-              coord tmp;
-              istringstream iss(line);
-              iss>>tmp.llng>>tmp.llt;
-              nodes.push_back(tmp);
-          }
-          return nodes;
-      }
-    }
+  //відкриваємо файл
+  ifstream input(file);
+  if (!input.is_open()){
+      cerr<<"Can not read \""<<file<<"\""<<endl;
+        return nodes;
+  }
+  //зчитуємо вміст по рядку
   else {
-      //відкриваємо файл
-      ifstream input(__argv[1]);
-      if (!input.is_open()){
-          cerr<<"Can not read \""<<__argv[1]<<"\""<<endl;
-            return nodes;
+      string line;
+      while (getline(input, line)){
+          coord tmp;
+          istringstream iss(line);
+          iss>>tmp.llng>>tmp.llt;
+          nodes.push_back(tmp);
       }
-      //зчитуємо вміст по рядку
-      else {
-          string line;
-          while (getline(input, line)){
-              coord tmp;
-              istringstream iss(line);
-              iss>>tmp.llng>>tmp.llt;
-              nodes.push_back(tmp);
-          }
-          return nodes;
-      }
-    }
+      return nodes;
+  }
 }
+
 /// Функція друкує двомірну матрицю в файл out.txt
-int write(bool **matrix, int size){
-  remove ("output.txt");
-  ofstream output("out.txt", ofstream::trunc);
+int write(bool **matrix, int size, const char *file){
+  remove (file);
+  ofstream output(file, ofstream::trunc);
   if (!output.is_open()){
-      cerr<<"Can not write to \"out.txt\""<<endl;
+      cerr<<"Can not write to \""<<file<<"t\""<<endl;
       return 2;
     }
   else {
-      //output.width(5);
       for (int i=0; i<size; i++){
           for (int j=0; j<size; j++)
               output<<matrix[i][j]<<"\t";

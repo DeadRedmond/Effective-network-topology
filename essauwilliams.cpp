@@ -1,9 +1,10 @@
 #include "essauwilliams.h"
 int g_counter=0;
 
-EssauWilliams::EssauWilliams(int **a, int b){
+EssauWilliams::EssauWilliams(int **a, int b, int c){
     matrix=a;
     size=b;
+    limit=c;
 
     result_matrix=new bool *[size];
     flag=new bool [size];

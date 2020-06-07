@@ -12,13 +12,12 @@
 
 using namespace std;
 
-class coord {
-public:
+struct coord {
   double llt, llng;
 };
 
-vector<coord> read();
-int write(bool**,int);
+vector<coord> read(const char*);
+int write(bool**,int, const char*);
 int write_int(int**,int);
 int get_distance(double,double,double,double);
 #endif // FUNC_H

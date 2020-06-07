@@ -6,11 +6,13 @@ CONFIG -= qt
 QMAKE_LFLAGS += -static
 
 SOURCES += \
+        args.cpp \
         essauwilliams.cpp \
         func.cpp \
         main.cpp
 
 HEADERS += \
+    args.h \
     essauwilliams.h \
     func.h
 
