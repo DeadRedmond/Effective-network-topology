@@ -18,11 +18,12 @@ vector<coord> read(const char *file){
           iss>>tmp.llng>>tmp.llt;
           nodes.push_back(tmp);
       }
-      return nodes;
+      input.close();
   }
+  return nodes;
 }
 
-/// Функція друкує двомірну матрицю в файл out.txt
+/// Функція друкує матрицю суміжності в файл
 int write(bool **matrix, int size, const char *file){
   remove (file);
   ofstream output(file, ofstream::trunc);
@@ -41,16 +42,15 @@ int write(bool **matrix, int size, const char *file){
     }
 }
 
-///*функція приймає координати двох точок і повертає відстань між ними в метрах
+/// Функція приймає координати двох точок і повертає відстань між ними в метрах
 int get_distance(double llat1, double llong1, double llat2, double llong2) {
-
   //приведення до радіан
   double lat1 = llat1*M_PI/180;
   double lat2 = llat2*M_PI/180;
   double long1 = llong1*M_PI/180;
   double long2 = llong2*M_PI/180;
 
-  //косинуси і синуси широт, и різниці довгот
+  //косинуси і синуси широт, і різниці довгот
   double cl1 = cos(lat1);
   double cl2 = cos(lat2);
   double sl1 = sin(lat1);

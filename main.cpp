@@ -3,16 +3,17 @@
 #include "args.h"
 
 int main() {
+    //отримуємо аргументи командного рядка
     args_t args;
+    //зчитуємо вміст вхідного файлу
     vector <coord> nodes=read(args.input_file);
     int Size = nodes.size();//кількість вузлів
-    if (Size==0) return 2;
+    if (Size==0) return 2;  //зчитування з помилкою
 
+    //виділяємо пам'ять
     int **dist_matrix=new int *[Size];
-    bool **result_array=new bool *[Size];
     for (int i=0;i<Size;i++){
         dist_matrix[i]=new int[Size];
-        result_array[i]=new bool[Size];
     }
     //матриця відстаней між вузлами
     for (int i=0; i<Size; i++){
@@ -22,9 +23,11 @@ int main() {
                 else dist_matrix[i][j]=dist_matrix[j][i]=get_distance(nodes[i].llng, nodes[i].llt, nodes[j].llng, nodes[j].llt);
             }
         }
+    //використовуємо алгоитм
     EssauWilliams effective_topology(dist_matrix, Size, args.limit);
     bool **result=effective_topology.algorythm();
     if (write(result, Size, args.output_file)!=0) return 3;
+    //в кінці необхідно вивільнити виділену пам'ять
     for (int i=0;i<Size;i++){
         delete[] dist_matrix[i];
         delete[] result[i];

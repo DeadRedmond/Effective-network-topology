@@ -16,8 +16,8 @@ public:
   int limit;              //-l
   args_t();
 private:
-  void usage();
-  int getsize(char*);
+  void usage();//повідомлення про програму
+  void getlimit(char*);//зчитування параметру limit
 };
 
 #endif // ARGS_H
