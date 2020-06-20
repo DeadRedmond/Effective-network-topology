@@ -14,7 +14,7 @@ public:
   const char *input_file; //-i
   const char *output_file;//-o
   int limit;              //-l
-  args_t();
+  args_t(int, char*[]);
 private:
   void usage();//повідомлення про програму
   void getlimit(char*);//зчитування параметру limit

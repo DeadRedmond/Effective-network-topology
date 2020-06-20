@@ -2,9 +2,9 @@
 #include "func.h"
 #include "args.h"
 
-int main() {
+int main(int argc, char* argv[]) {
     //отримуємо аргументи командного рядка
-    args_t args;
+    args_t args(argc, argv);
     //зчитуємо вміст вхідного файлу
     vector <coord> nodes=read(args.input_file);
     int Size = nodes.size();//кількість вузлів

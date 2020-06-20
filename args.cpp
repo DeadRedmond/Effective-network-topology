@@ -1,6 +1,6 @@
 #include "args.h"
 
-args_t::args_t(){
+args_t::args_t(int argc, char* argv[]){
   static const char* opt_s="i:o:l:h?";//шаблон параметрів
   //параметри за замовчуванням
   input_file="input.txt"; //вхідний файл
@@ -9,7 +9,7 @@ args_t::args_t(){
 
   //обробка параметрів командного рядка
   int opt=0;
-  opt=getopt(__argc, __argv, opt_s);
+  opt=getopt(argc, argv, opt_s);
   while(opt!=-1){
       switch (opt) {
         case 'i':
@@ -31,7 +31,7 @@ args_t::args_t(){
 
         default: break;
         }
-      opt=getopt(__argc, __argv, opt_s);
+      opt=getopt(argc, argv, opt_s);
     }
 }
 
