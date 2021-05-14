@@ -1,8 +1,10 @@
 #include "essauwilliams.h"
+#include "gen.h"
 #include "func.h"
 #include "args.h"
 
 int main(int argc, char* argv[]) {
+
     //отримуємо аргументи командного рядка
     args_t args(argc, argv);
     //зчитуємо вміст вхідного файлу
@@ -24,15 +26,20 @@ int main(int argc, char* argv[]) {
             }
         }
     //використовуємо алгоитм
-    EssauWilliams effective_topology(dist_matrix, Size, args.limit);
-    bool **result=effective_topology.algorythm();
-    if (write(result, Size, args.output_file)!=0) return 3;
-    //в кінці необхідно вивільнити виділену пам'ять
-    for (int i=0;i<Size;i++){
-        delete[] dist_matrix[i];
-        delete[] result[i];
-      }
-    delete[] dist_matrix;
-    delete[] result;
-    return 0;
+    GenAlg test(dist_matrix,Size,4);
+    test.generator();
+    test.test();
+
+
+//    EssauWilliams effective_topology(dist_matrix, Size, args.limit);
+//    bool **result=effective_topology.algorythm();
+//    if (write(result, Size, args.output_file)!=0) return 3;
+//    //в кінці необхідно вивільнити виділену пам'ять
+//    for (int i=0;i<Size;i++){
+//        delete[] dist_matrix[i];
+//        delete[] result[i];
+//      }
+//    delete[] dist_matrix;
+//    delete[] result;
+//    return 0;
 }

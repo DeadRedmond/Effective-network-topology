@@ -9,10 +9,13 @@ SOURCES += \
         args.cpp \
         essauwilliams.cpp \
         func.cpp \
+        gen.cpp \
         main.cpp
 
 HEADERS += \
     args.h \
     essauwilliams.h \
-    func.h
+    func.h \
+    gen.h \
+    matrix.h
 
