@@ -42,6 +42,25 @@ int write(bool **matrix, int size, const char *file){
     }
 }
 
+int write(Matrix M, int size, const char *file){
+    remove (file);
+    ofstream output(file, ofstream::trunc);
+    if (!output.is_open()){
+        cerr<<"Can not write to \""<<file<<"t\""<<endl;
+        return 2;
+     }
+    else {
+        for (int i=0; i<size; i++){
+            for (int j=0; j<size; j++)
+                output<<M.getIJ(i,j)<<"\t";
+            output<<endl;
+        }
+    }
+    output.close();
+    return 0;
+}
+
+
 /// Функція приймає координати двох точок і повертає відстань між ними в метрах
 int get_distance(double llat1, double llong1, double llat2, double llong2) {
   //приведення до радіан

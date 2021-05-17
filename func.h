@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "matrix.h"
 
 #define RAD     6372795//радіус Землі в метрах
 #define M_PI	3.14159265358979323846//Pi
@@ -18,6 +19,6 @@ struct coord {
 
 vector<coord> read(const char*);
 int write(bool**,int, const char*);
-int write_int(int**,int);
+int write(Matrix,int, const char*);
 int get_distance(double,double,double,double);
 #endif // FUNC_H

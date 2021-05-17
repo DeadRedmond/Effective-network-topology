@@ -6,6 +6,7 @@
 #include <cmath>
 #include <random>
 #include <functional>
+#include <ctime>
 #include <matrix.h>
 
 using namespace std;
@@ -15,46 +16,34 @@ class GenAlg
 public:
     GenAlg(int**a, int b, int c);
     ~GenAlg();
-    bool** algorythm();
-
-    void test();
-
-    void generator();
+    Matrix algorythm();
 
 private:
+    mt19937 mt;
 
-
+    //шанс оператору у відсотках
+    int mutation_rate=5;
+    int crossover_rate=20;
 
     //генерація вихідної популяції
-
-    void generatorRep();
-    void generatorDel();
-
+    void generator();
     //мутація
-    bool** mutation();
-    bool** mutationRep();
-
+    void mutation();
     //рекомбінація
-    bool** crossover();
-    bool** crossoverRep();
-
+    void crossover();
     //оцінка
-    int rate();
+    void rate();
 
+    void dfs(int, vector<bool>*, Matrix*);
     //змінні
-    vector<Matrix*> population;
-
-    vector<vector<bool> > population1;
-
-    int size, v_size=0, p_size, degree, *subgraphs, **matrix;
-    bool **result_matrix;
+    vector<vector<bool> > population;
+    int size, v_size=0, p_size, degree, cut_limit, **matrix;
 
     bool randomBool();
     int randomInt(int);
 
     vector<bool> MatrixToVector(Matrix);
     Matrix VectorToMatrix(vector<bool>);
-
 };
 
 #endif // GEN_H

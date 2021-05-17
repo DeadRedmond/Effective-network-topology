@@ -2,6 +2,7 @@
 #include "gen.h"
 #include "func.h"
 #include "args.h"
+#include "matrix.h"
 
 int main(int argc, char* argv[]) {
 
@@ -26,20 +27,19 @@ int main(int argc, char* argv[]) {
             }
         }
     //використовуємо алгоитм
-    GenAlg test(dist_matrix,Size,4);
-    test.generator();
-    test.test();
-
+    GenAlg gen(dist_matrix,Size, 3);
+    Matrix result=gen.algorythm();
+    if (write(result, Size, args.output_file)!=0) return 3;
 
 //    EssauWilliams effective_topology(dist_matrix, Size, args.limit);
 //    bool **result=effective_topology.algorythm();
 //    if (write(result, Size, args.output_file)!=0) return 3;
-//    //в кінці необхідно вивільнити виділену пам'ять
-//    for (int i=0;i<Size;i++){
-//        delete[] dist_matrix[i];
-//        delete[] result[i];
-//      }
-//    delete[] dist_matrix;
-//    delete[] result;
-//    return 0;
+    //в кінці необхідно вивільнити виділену пам'ять
+    for (int i=0;i<Size;i++){
+        delete[] dist_matrix[i];
+        //delete[] result[i];
+      }
+    delete[] dist_matrix;
+    //delete[] result;
+    return 0;
 }
