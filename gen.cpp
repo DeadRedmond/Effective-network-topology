@@ -2,7 +2,6 @@
 //int g_counter=0;
 
 GenAlg::GenAlg(int** a, int b, int c){
-    mt19937 mt(time(NULL));
 
 
     matrix=a;
@@ -13,6 +12,15 @@ GenAlg::GenAlg(int** a, int b, int c){
     for (int i=1;i<size;i++)
         v_size+=size-i;//розмір вектору трикутника
     cut_limit = p_size;
+
+    for (int i=0;i<size;i++)
+        for (int j=i;j<size;j++)
+            if (max_lenght<matrix[i][j])
+                max_lenght=matrix[i][j];
+
+
+
+
 }
 
 GenAlg::~GenAlg(){
@@ -24,7 +32,7 @@ void GenAlg::generator(){
 
         Matrix tmpM(size);
         for (int i=0; i<size; i++){
-            int num = randomInt(degree);
+            int num = randomInt(2,degree);
             for (int j=0; j<num; j++){
                 int idx = randomInt(size);
                 tmpM.setIJ(i,idx, true);
@@ -59,15 +67,9 @@ void GenAlg::crossover(){
         }
     }
 
-
     int amount=pos.size();
 
-    if(!(amount%2==0)){
-        pos.erase(pos.begin()+ randomInt(amount)-1);
-        amount--;
-    }
-
-    while (amount>0){
+    while (amount>=2){
         int a=randomInt(amount-1);
         int b=randomInt(amount-1);
 
@@ -88,12 +90,15 @@ void GenAlg::crossover(){
             population.push_back(vector_a);
             population.push_back(vector_b);
 
+            //pos.erase(remove(pos.begin(), pos.end(), 99), pos.end());
+
             pos.erase(pos.begin()+b);
             pos.erase(pos.begin()+a);
 
             amount-=2;
         }
     }
+
 }
 
 void GenAlg::rate(){
@@ -102,15 +107,29 @@ void GenAlg::rate(){
 
     for (int g=0; g<p_size; g++){
         //оцінимо отримані хромосоми
+        vector<int> d_index(size,0);
         Matrix tmpM=VectorToMatrix(population[g]);
+        for (int i=0; i<size; i++){
+            for (int j=i+1; j<size; j++){
+                if(tmpM.getIJ(i,j)==true){
+                    grade[g]+=matrix[i][j];
+                    d_index[i]++;
+                    d_index[j]++;
+                }
+            }
+        }
+
+        for (int i=0; i<size; i++){
+            if (d_index[i]==1 || d_index[i]>degree){
+                grade[g]+=(size*size*max_lenght);
+            }
+        }
 
 
 
+        //перевіримо на зв'язність
         vector<bool> visited(size, false);
-        //int start=randomInt(size-1);
         dfs(randomInt(size-1), &visited, &tmpM);
-
-
         bool check=visited[0];
         for (int i=1;i<size;i++)
             check=check&&visited[i];
@@ -118,18 +137,16 @@ void GenAlg::rate(){
             int m=0;
             m=~m;
             m=(unsigned int)m>> 1;
-            grade[g]=m;
+            grade[g]*=10;
         }
 
-        else{
 
-            for (int i=0; i<size; i++){
-                for (int j=i+1; j<size; j++){
-                    if(tmpM.getIJ(i,j)==true) grade[g]+=matrix[i][j];
-                }
-            }
-        }
+
     }
+
+
+
+
     //далі потрібно відсіяти найгірші хромосоми
     //сортуємо за зростанням
     int key=grade[0];
@@ -154,21 +171,34 @@ void GenAlg::rate(){
 
     //відсікаємо найгірші
     population.erase(population.begin()+cut_limit, population.end());
+
 }
 
 
 void GenAlg::dfs(int v, vector<bool> *visited, Matrix *M) {
-
     visited->at(v)=true;
     for (int i = 0; i<size; ++i) {
-        if ((M->getIJ(i,v)) && (visited->at(i)==false) )
+        if ((M->getIJ(v,i)) && (visited->at(i)==false) )
             dfs(i, visited, M);
     }
 }
 
+
+void GenAlg::test(int g){
+    Matrix tmpM=VectorToMatrix(population[g]);
+    for (int i = 0; i<size; ++i) {
+        for (int j = 0; j<size; ++j) {
+            cout<<tmpM.getIJ(i,j)<<"\t";
+        }
+        cout<<endl;
+    }
+    cout<<"|||||||||||||||||||||||||||||||||||||"<<endl<<endl;
+
+}
+
 Matrix GenAlg::algorythm(){
     generator();
-    for(int i=0;i<100*size; i++){
+    for(int i=0;i<size*size*size; i++){
 
         mutation();
 
@@ -185,13 +215,18 @@ Matrix GenAlg::algorythm(){
 bool GenAlg::randomBool() {
 
     uniform_int_distribution<int> gen(0,1);
-    return gen(mt);
+    return gen(eng);
 }
 
 int GenAlg::randomInt(int bound){
 
     uniform_int_distribution<int> gen(0,bound);
-    return gen(mt);
+    return gen(eng);
+}
+int GenAlg::randomInt(int from, int to){
+
+    uniform_int_distribution<int> gen(from,to);
+    return gen(eng);
 }
 
 vector<bool> GenAlg::MatrixToVector(Matrix M){

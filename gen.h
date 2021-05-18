@@ -17,10 +17,10 @@ public:
     GenAlg(int**a, int b, int c);
     ~GenAlg();
     Matrix algorythm();
+    void test(int);
 
 private:
-    mt19937 mt;
-
+    default_random_engine eng{static_cast<long unsigned int>(time(0))};
     //шанс оператору у відсотках
     int mutation_rate=5;
     int crossover_rate=20;
@@ -37,10 +37,12 @@ private:
     void dfs(int, vector<bool>*, Matrix*);
     //змінні
     vector<vector<bool> > population;
-    int size, v_size=0, p_size, degree, cut_limit, **matrix;
+    int size, v_size=0, max_lenght=0, p_size, degree, cut_limit, **matrix;
 
     bool randomBool();
+    int randomInt(int,int);
     int randomInt(int);
+
 
     vector<bool> MatrixToVector(Matrix);
     Matrix VectorToMatrix(vector<bool>);
