@@ -17,10 +17,6 @@ GenAlg::GenAlg(int** a, int b, int c){
         for (int j=i;j<size;j++)
             if (max_lenght<matrix[i][j])
                 max_lenght=matrix[i][j];
-
-
-
-
 }
 
 GenAlg::~GenAlg(){
@@ -86,11 +82,8 @@ void GenAlg::crossover(){
                 vector_a[j]=vector_b[j];
                 vector_b[j]=tmp;
             }
-
             population.push_back(vector_a);
             population.push_back(vector_b);
-
-            //pos.erase(remove(pos.begin(), pos.end(), 99), pos.end());
 
             pos.erase(pos.begin()+b);
             pos.erase(pos.begin()+a);
@@ -98,7 +91,6 @@ void GenAlg::crossover(){
             amount-=2;
         }
     }
-
 }
 
 void GenAlg::rate(){
@@ -120,11 +112,10 @@ void GenAlg::rate(){
         }
 
         for (int i=0; i<size; i++){
-            if (d_index[i]==1 || d_index[i]>degree){
+            if (d_index[i]==1){
                 grade[g]+=(size*size*max_lenght);
             }
         }
-
 
 
         //перевіримо на зв'язність
@@ -134,17 +125,9 @@ void GenAlg::rate(){
         for (int i=1;i<size;i++)
             check=check&&visited[i];
         if (!check){
-            int m=0;
-            m=~m;
-            m=(unsigned int)m>> 1;
-            grade[g]*=10;
+            grade[g]*=100;
         }
-
-
-
     }
-
-
 
 
     //далі потрібно відсіяти найгірші хромосоми
@@ -174,7 +157,7 @@ void GenAlg::rate(){
 
 }
 
-
+//перевірка на зв'язність за допомогою пошуку в глибину
 void GenAlg::dfs(int v, vector<bool> *visited, Matrix *M) {
     visited->at(v)=true;
     for (int i = 0; i<size; ++i) {
@@ -198,7 +181,7 @@ void GenAlg::test(int g){
 
 Matrix GenAlg::algorythm(){
     generator();
-    for(int i=0;i<size*size*size; i++){
+    for(int i=0;i<size*size*100; i++){
 
         mutation();
 

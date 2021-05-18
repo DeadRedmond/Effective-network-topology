@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
             }
         }
     //використовуємо алгоитм
-    GenAlg gen(dist_matrix,Size, 5);
+    GenAlg gen(dist_matrix,Size, args.limit);
     Matrix result=gen.algorythm();
     if (write(result, Size, args.output_file)!=0) return 3;
 

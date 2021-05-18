@@ -5,7 +5,7 @@ args_t::args_t(int argc, char* argv[]){
   //параметри за замовчуванням
   input_file="input.txt"; //вхідний файл
   output_file="out.txt";  //вихідний файл
-  limit=4;                //ліміт <4
+  limit=5;                //ліміт <4
 
   //обробка параметрів командного рядка
   int opt=0;
